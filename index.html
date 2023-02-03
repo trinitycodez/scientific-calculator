@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online_Calculator</title>
+    <!-- <meta name="color-scheme" content="dark"> -->
+    <!-- <link rel="stylesheet" href="./CSS/styles.css"> -->
+    <style>
+        *,
+        *::after,
+        *::before {
+            padding: 0rem;
+            margin: 0rem;
+            box-sizing: border-box;
+        }
+        :root {
+            --widthCtrl: 25rem;
+        }
+        html {
+            font-size: 87.5%;  /* 14px */
+        }
+        body {
+            font-size: 1.14rem;
+            position: relative;
+            border: 1px solid #a93;
+            background-color: #f5f5f5;
+        }
+        .head,
+        .foot {
+            height: 3em;
+            width: 100%;
+            /* border: 2px solid #09f; */
+        }
+        .head {
+            position: relative;
+            top: 0rem;
+            background-color: #ffffff;
+            box-shadow: 0px 1px 5px #000;
+            position: sticky;
+            top: 0rem;
+            z-index: 3;
+        }
+        .foot {
+            display: flex;
+            position: relative;
+            margin-top: 5rem;
+            bottom: 0rem;
+            height: 5rem;
+        }
+        section {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+            position: relative;
+            margin-top: 2rem;
+            border: 2px solid #f00;            
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            -ms-flex-direction: column;
+            background-color: #ffffff;
+            height: auto;
+            width: max-content;
+            border: 2px solid #000;
+        }
+        .keys-pack {
+            display: inherit;
+            flex-direction: row;
+            -ms-flex-direction: row;
+            flex-wrap: nowrap;
+            height: auto;
+            width: max-content;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        .sideOptr {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            max-width: var(--widthCtrl);
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            /* border: 2px solid #c9b; */
+        }
+        .mainOptr {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            color: #000;
+            max-width: 33rem;
+            justify-content: center;
+            align-items: center;
+            border-left: 1px solid #09f;
+        }
+        .btn {
+            display: flex;
+            font-size: 2rem;
+            height: 1.8em;
+            width: 3em;
+            margin: .4rem 1rem;
+            justify-content: center;
+            align-items: center;
+            /* border: 2px solid #fa0; */
+            border-radius: 1rem;
+            outline-style: none;
+            background-color: #e8f0f3;
+            cursor: pointer;
+        }
+        .btn:active {
+            transform: scale(.9);
+        }
+        .btn0 {
+            width: 7em;
+        }
+        sup {
+            vertical-align: super;
+            font-size: 1rem;
+        }
+        .display-section {
+            width: 58rem;
+            height: 10rem;
+            border-bottom: 2px solid #466f7e;
+            margin-bottom: 1rem;
+        }
+        .display-result {
+            padding-right: 1rem;
+            text-align: end;
+        }
+        .work-class {
+            height: 2.5rem;
+            font-size: 1.9rem;
+            border-bottom: 1px solid #fa0;
+            /* font-weight: bold; */
+            color: #9b9696;
+        }
+        .result-class {
+            height: 3.2rem;
+            font-size: 2.7rem;
+            border-bottom: 1px solid #0a0;
+            font-weight: bold;
+        }
+        span {
+            font-weight: bold;
+            color: #ff9e0db4;
+            font-size: 1.4rem;
+        }
+        .btn_eqls {
+            background-color: #2ad17a !important;
+        }
+        .btn_cls {
+            color: #f00;
+            background-color: #f8ecec;
+        }
+        .btn_del { color: #466f7e; }
+        .btn_plus,
+        .btn_mins,
+        .btn_tims,
+        .btn_dive,
+        .btn_eqls {
+            background-color: #ff9501;
+            color: #ffffff !important;
+        }
+        .profile {
+            height: 100%;
+            width: 20rem;
+            border-bottom: 2px solid #000;
+            /* border: 2px solid #f0f; */
+            color: #636262;
+        }
+        .profile_head {
+            height: auto;
+            /* border: 2px solid #f66; */
+        }
+        .name {
+            text-align: center;
+        }
+        .code {
+            padding-left: .8rem;
+        }
+        .img_circle {
+            display: flex;
+            border: 2px solid hsla(143, 100%, 50%, 0.37);
+            margin: 0rem auto;
+            width: 7.5rem;
+            height: 7.5rem;
+            border-radius: 3.75rem;
+            justify-content: center;
+            align-items: center; 
+        }
+        .img_profile {
+            width: 6rem;
+            height: 6rem;
+            /* border: 2px solid #fa0; */
+        }
+        .project_link {
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            border-radius: 2rem;
+            /* border: 2px solid green; */
+            padding: 0em 1rem;
+            color: #008000;
+            background-color: #e8f0f3;
+        }
+        .project_link:active {
+            transform: scale(.94);
+        }
+        .project_link a {
+            display: inline-block;
+            width: 100%;
+            justify-content: space-between;
+            text-decoration: none;
+            color: #16b116;
+            padding: .9rem 0rem;
+        }
+        .project_link:hover, 
+        .project_link a:hover {
+            color: #2ad17a;
+        }
+        p strong {
+            color: #ff9501;
+        }
+        .side_pointer {
+            display: none;
+        }
+        .pointer_rotate {
+            transform: scaleX(-100%);
+            -ms-transform: scaleX(-100%);
+        }
+        footer {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #636262;
+            color: #ffffff;
+            /* background-color: #d2dde1; */
+        }
+        .social_media {
+            display: flex;
+            justify-content: space-evenly;
+            width: 20rem;
+            height: auto;
+            padding-bottom: .7rem;
+            /* border: 2px dotted #0a0; */
+            border-bottom: 1px solid #7c817c;
+        }
+        .social_media svg:hover path {
+            fill: #ff9b05;
+        }
+        .footer_info {
+            width: 100%;
+            height: auto;
+            text-align: center;
+            /* border: 2px dotted #0a0; */
+            padding-top: .5rem;
+        }
+        a {
+            color: #ff9b05;
+        }
+
+        /* @keyframes DisplaySideOPrt {
+            from {
+                max-width: 0rem;
+                height: 100%;
+            }
+            to {
+                max-width: var(--widthCtrl);
+                height: 100%;
+            }
+        } */
+        
+        @media screen and (max-width:320px) {
+            @media screen and (max-width:265px) {
+                .btn {
+                    width: 5rem;
+                }
+                .btn0 {
+                    width: 11rem !important;
+                }
+                .container {
+                    transform: scale(.9);
+                }
+                .mainOptr {
+                    justify-content: space-evenly;
+                }
+                .sideOptr {
+                    justify-content: space-evenly;
+                }
+            }
+            html {
+                font-size: 47.5%;
+            }
+            :root {
+                --widthCtrl: 21.73rem;
+            }
+            body {
+                font-size: 1.8rem;
+            }
+            section {
+                flex-direction: column;
+            }
+            .container {
+                order: 2;
+                width: auto;
+            }
+            .keys-pack {
+                width: auto;
+            }
+            .profile {
+                order: 1;
+                margin-bottom: 4rem;
+            }
+            .code {
+                text-align: center;
+            }
+            .sideOptr {
+                display: none;
+            }
+            .display-section {
+                width: 100%;
+            }
+            .mainOptr {
+                max-width: 30rem;
+            }
+            .display_Side_oprt {
+                display: flex;
+                z-index: 2;
+                position: absolute;
+                background-color: #9b9696;
+            }
+            .side_pointer {
+                display: flex;
+                position: absolute;
+                top: 40%;
+                left: 0%;
+                height: 5rem;
+                width: 2.4rem;
+                align-items: center;
+                font-size: 2rem;
+                z-index: 3;
+                background-color: #5adf5a6e;
+                border-radius: 0em 2rem 2rem 0em;
+                cursor: pointer;
+                box-shadow: 2px 0px 11px #0f0f0f88;
+            }
+            .pointer_icon {
+                display: inherit;
+                height: 100%;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+            .btn {
+                margin: 0.4rem 0.5rem;
+            }
+            .btn0 {
+                width: 13rem;
+            }            
+        }
+        @media screen and (min-width:321px) and (max-width:425px) {
+            html {
+                font-size: 47.5%;
+            }
+            :root {
+                --widthCtrl: 21.73rem;
+            }
+            .sideOptr {
+                display: none;
+            }
+            .display-section {
+                width: 100%;
+            }
+            .mainOptr {
+                max-width: 30rem;
+            }
+            .display_Side_oprt {
+                display: flex;
+                z-index: 2;
+                position: absolute;
+                background-color: #9b9696;
+                animation: DisplaySideOPrt 50ms linear alternate forwards;
+                -webkit-animation: DisplaySideOPrt 50ms linear alternate forwards;
+            }
+            .side_pointer {
+                display: flex;
+                position: absolute;
+                top: 40%;
+                left: 0%;
+                height: 5rem;
+                width: 2.4rem;
+                align-items: center;
+                font-size: 2rem;
+                z-index: 3;
+                background-color: #5adf5a6e;
+                border-radius: 0em 2rem 2rem 0em;
+                cursor: pointer;
+                box-shadow: 2px 0px 11px #0f0f0f88;
+            }
+            .pointer_icon {
+                display: inherit;
+                height: 100%;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+            .btn {
+                margin: 0.4rem 0.5rem;
+            }
+            .btn0 {
+                width: 13rem;
+            }
+        }
+        @media screen and (min-width:426px) and (max-width:667px) {
+            html {
+                font-size: 59.5%;
+            }
+            .sideOptr {
+                display: none;
+            }
+            .display-section {
+                width: 100%;
+            }
+            .display_Side_oprt {
+                display: flex;
+                z-index: 2;
+                position: absolute;
+                background-color: #9b9696;
+                animation: DisplaySideOPrt 50ms linear alternate forwards;
+                -webkit-animation: DisplaySideOPrt 50ms linear alternate forwards;
+            }
+            .side_pointer {
+                display: flex;
+                position: absolute;
+                top: 40%;
+                left: 0%;
+                height: 5rem;
+                width: 2.4rem;
+                align-items: center;
+                font-size: 2rem;
+                z-index: 3;
+                background-color: #5adf5a6e;
+                border-radius: 0em 2rem 2rem 0em;
+                cursor: pointer;
+                box-shadow: 2px 0px 11px #0f0f0f88;
+            }
+            .pointer_icon {
+                display: inherit;
+                height: 100%;
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+        @media screen and (min-width:666px) and (max-width:768px) {
+            html {
+                font-size: 53.5%;
+            }
+            body {
+                font-size: 1.8rem;
+            }
+        }
+        @media screen and (min-width:769px) and (max-width:868px) {
+            html {
+                font-size: 65.5%;
+            }
+        }
+        @media screen and (min-width:869px) and (max-width:1024px) {
+            html {
+                font-size: 73.5%;
+            }
+        }
+
+</style>
+</head>
+<body>
+    <header class="head"></header>
+    <section>
+        <div class="container">
+            <div class="display-section">
+                <div class="display-result work-class"></div>
+                <div class="display-result result-class"></div>
+            </div>
+            <div class="keys-pack">
+                <div class="sideOptr" id="side-pane">
+                    <div class="btn btn_prct" onclick="solve(this, 'signs')">&percnt;</div>
+                    <div class="btn btn_X2" onclick="solve(this, 'signs')">x<sup>2</sup></div>
+                    <div class="btn btn_X3" onclick="solve(this, 'signs')">x<sup>3</sup></div>
+                    <div class="btn btn_sin" onclick="solve(this, 'signs')">sin</div>
+                    <div class="btn btn_cos" onclick="solve(this, 'signs')">cos</div>
+                    <div class="btn btn_tan" onclick="solve(this, 'signs')">tan</div>
+                    <div class="btn btn_ln" onclick="solve(this, 'signs')">ln</div>
+                    <div class="btn btn_log" onclick="solve(this, 'signs')">log</div>
+                    <div class="btn btn_fact" onclick="solve(this, 'signs')">!</div>
+                    <div class="btn btn_exp" onclick="solve(this, 'signs')">&exponentiale;</div>
+                    <div class="btn btn_pii" onclick="solve(this, 'signs')">&pi;</div>
+                    <div class="btn btn_powr" onclick="solve(this, 'signs')">^</div>
+                    <div class="btn btn_opnB" onclick="solve(this, 'signs')">(</div>
+                    <div class="btn btn_clsB" onclick="solve(this, 'signs')">)</div>
+                    <div class="btn btn_ans" onclick="solve(this, 'signs')">Ans</div>
+                </div>
+                <div class="side_pointer">
+                    <div class="pointer_icon">
+                        &blacktriangleright;
+                    </div>
+                </div>
+                <div class="mainOptr" id="basic-view">
+                    <div class="btn btn_cls" onclick="clearWork()">C</div>
+                    <div class="btn btn_dive" onclick="solve(this, 'signs')">&divide;</div>
+                    <div class="btn btn_tims" onclick="solve(this, 'signs')">&times;</div>
+                    <div class="btn btn_del" onclick="backSpace()">B</div>
+                    <div class="btn btn7" onclick="solve(this)">7</div>
+                    <div class="btn btn8" onclick="solve(this)">8</div>
+                    <div class="btn btn9" onclick="solve(this)">9</div>
+                    <div class="btn btn_sqrt" onclick="solve(this, 'signs')">&Sqrt;</div>
+                    <div class="btn btn4" onclick="solve(this)">4</div>
+                    <div class="btn btn5" onclick="solve(this)">5</div>
+                    <div class="btn btn6" onclick="solve(this)">6</div>
+                    <div class="btn btn_mins" onclick="solve(this, 'signs')">&minus;</div>
+                    <div class="btn btn1" onclick="solve(this)">1</div>
+                    <div class="btn btn2" onclick="solve(this)">2</div>
+                    <div class="btn btn3" onclick="solve(this)">3</div>
+                    <div class="btn btn_plus" onclick="solve(this, 'signs')">&plus;</div>
+                    <div class="btn btn0" onclick="solve(this)">0</div>
+                    <div class="btn btn_dot" onclick="solve(this, 'signs')">.</div>
+                    <div class="btn btn_eqls" onclick="result()">&equals;</div>
+                </div>
+            </div>
+        </div>
+        <div class="profile">
+            <div class="profile_head">
+                <div class="img_circle">
+                    <div class="img_profile">
+                        <img width="100%" height="100%" style="border-radius: 50%;" src="./IMAGE/trinity.jpg" alt="Profile Image">
+                    </div>
+                </div> <br />
+                <div class="name">Olowoyori Emmanuel Taiwo <br /> (Trinity)</div>
+            </div> <br />
+            <div class="code">
+                <p><strong>PROJECT CODE:</strong></p>
+                <div class="project_link">
+                    <a href="http://github.io/" target="_blank" rel="noopener noreferrer">
+                        Online Calculator
+                    </a>
+                    &rightarrow;
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer class="foot">
+        <div class="social_media">
+            <svg width="42" height="80" viewBox="0 0 42 80" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: auto; width: .7rem;">
+                <path d="M37.612 27.9999H28V19.9999C28 15.8719 28.336 13.2719 34.252 13.2719H37.724C39.932 13.2719 41.724 11.4799 41.724 9.2719V4.25591C41.724 2.16391 40.12 0.375906 38.032 0.235906C35.616 0.0719058 33.196 -0.00409427 30.772 -9.42655e-05C19.92 -9.42655e-05 12 6.62791 12 18.7959V27.9999H4C1.792 27.9999 0 29.7919 0 31.9999V39.9999C0 42.2079 1.792 43.9999 4 43.9999L12 43.9959V75.9999C12 78.2079 13.792 79.9999 16 79.9999H24C26.208 79.9999 28 78.2079 28 75.9999V43.9879L36.696 43.9839C38.728 43.9839 40.436 42.4599 40.668 40.4399L41.584 32.4559C41.86 30.0839 40.004 27.9999 37.612 27.9999Z" fill="#ffffff"/>
+            </svg>
+            <svg width="81" height="65" viewBox="0 0 81 65" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: auto; width: 1.5rem;">
+                <path d="M79.5361 1.12409C76.2761 2.66409 70.7281 5.55209 67.9401 6.10409C67.8321 6.13209 67.7441 6.16809 67.6401 6.19609C64.3881 2.98809 59.9321 1.00009 55.0001 1.00009C45.0601 1.00009 37.0001 9.06009 37.0001 19.0001C37.0001 19.5241 36.9561 20.4881 37.0001 21.0001C24.1281 21.0001 14.7281 14.2841 7.69208 5.65209C6.75208 4.49209 5.75208 5.09609 5.54408 5.92009C5.07608 7.78409 4.91608 10.9001 4.91608 13.1241C4.91608 18.7281 9.29608 24.2321 16.1161 27.6441C14.8601 27.9681 13.4761 28.2001 12.0361 28.2001C10.3401 28.2001 8.38808 27.7561 6.68008 26.8601C6.04808 26.5281 4.68408 26.6201 5.08808 28.2361C6.70808 34.7121 14.1001 39.2601 20.7041 40.5841C19.2041 41.4681 16.0041 41.2881 14.5321 41.2881C13.9881 41.2881 12.0961 41.1601 10.8721 41.0081C9.75608 40.8721 8.04008 41.1601 9.47608 43.3361C12.5601 48.0041 19.5361 50.9361 25.5401 51.0481C20.0121 55.3841 10.9721 56.9681 2.31208 56.9681C0.560077 56.9281 0.648077 58.9241 2.06008 59.6641C8.44808 63.0161 18.9121 65.0001 26.3881 65.0001C56.1081 65.0001 73.0001 42.3481 73.0001 20.9961C73.0001 20.6521 72.9921 19.9321 72.9801 19.2081C72.9801 19.1361 73.0001 19.0681 73.0001 18.9961C73.0001 18.8881 72.9681 18.7841 72.9681 18.6761C72.9561 18.1321 72.9441 17.6241 72.9321 17.3601C75.2881 15.6601 78.8961 12.7081 80.7201 10.4481C81.3401 9.68009 80.8401 8.74809 79.9961 9.04009C77.8241 9.79609 74.0681 11.2601 71.7161 11.5401C76.4241 8.42409 78.7521 5.71209 80.7521 2.70009C81.4361 1.67209 80.5801 0.628091 79.5361 1.12409Z" fill="#ffffff"/>
+            </svg> 
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: auto; width: 1.4rem;">
+                <path d="M20 0C8.956 0 0 8.956 0 20V52C0 63.044 8.956 72 20 72H52C63.044 72 72 63.044 72 52V20C72 8.956 63.044 0 52 0H20ZM60 8C62.208 8 64 9.792 64 12C64 14.208 62.208 16 60 16C57.792 16 56 14.208 56 12C56 9.792 57.792 8 60 8ZM36 16C47.044 16 56 24.956 56 36C56 47.044 47.044 56 36 56C24.956 56 16 47.044 16 36C16 24.956 24.956 16 36 16ZM36 24C32.8174 24 29.7652 25.2643 27.5147 27.5147C25.2643 29.7652 24 32.8174 24 36C24 39.1826 25.2643 42.2348 27.5147 44.4853C29.7652 46.7357 32.8174 48 36 48C39.1826 48 42.2348 46.7357 44.4853 44.4853C46.7357 42.2348 48 39.1826 48 36C48 32.8174 46.7357 29.7652 44.4853 27.5147C42.2348 25.2643 39.1826 24 36 24Z" fill="#ffffff"/>
+            </svg>
+            <svg width="72" height="72" viewBox="0 0 72 72" fill="none" xmlns="http://www.w3.org/2000/svg" style="height: auto; width: 1.3rem;">
+                <path d="M12 0C5.42012 0 0 5.42012 0 12V60C0 66.5799 5.42012 72 12 72H60C66.5799 72 72 66.5799 72 60V12C72 5.42012 66.5799 0 60 0H12ZM12 8H60C62.2601 8 64 9.73988 64 12V60C64 62.2601 62.2601 64 60 64H12C9.73988 64 8 62.2601 8 60V12C8 9.73988 9.73988 8 12 8ZM36 16V44C36 46.2601 34.2601 48 32 48C29.7399 48 28 46.2601 28 44C28 41.7399 29.7399 40 32 40V32C25.4201 32 20 37.4201 20 44C20 50.5799 25.4201 56 32 56C38.5799 56 44 50.5799 44 44V28.9297C46.4646 30.6854 49.0365 32 52 32V24C51.8107 24 49.0507 23.1237 47.125 21.4453C45.1993 19.7669 44 17.66 44 16H36Z" fill="#ffffff"/>
+            </svg>
+        </div>
+        <p class="footer_info">
+            &copy;2022
+            <a href="#">calc.edu.ng</a>
+            by TRINITY
+        </p>
+    </footer>
+    <script src="./JS/demo.js"></script>
+    <script src="./JS/workings.js"></script>
+    <script src="./JS/toggle.js"></script>
+</body>
+</html>
